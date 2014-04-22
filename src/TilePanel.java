@@ -181,11 +181,11 @@ public class TilePanel extends JPanel{
 			changeValue(tileValue /2);
 		}
 	}
-
+/*
 	private void multiply(){}
 	private void add(){}
 	private void subtract(){}
-
+*/
 	//This gives too much access, so must be private.
 	private void changeValue(int newValue){
 		tileValue = newValue;
