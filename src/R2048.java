@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class R2048 extends JApplet {
-	private final int TILE_SIZE = 150; //Pixels
+	private final int TILE_SIZE = 115; //Pixels
 	private final int NUM_TILES = 4;
 	private final int windowWidth = NUM_TILES*TILE_SIZE;
 	private final int windowHeight = NUM_TILES*TILE_SIZE;
@@ -14,7 +14,7 @@ public class R2048 extends JApplet {
 	public void init(){
 		setLayout(new FlowLayout());
 
-		setSize(windowWidth+50,windowHeight+200);
+		setSize(windowWidth+50,windowHeight+150);
 		for (int i=0; i<NUM_TILES; ++i){
 			for (int j=0; j<NUM_TILES; ++j){
 				gameBoard[j][i] = new TilePanel(TILE_SIZE);
@@ -71,7 +71,7 @@ public class R2048 extends JApplet {
 				"<br>HOW TO PLAY:<br>" +
 				"<br>Use arrow keys to play. Pressing a key (<FONT COLOR='RED'>up, down, left, right</FONT>) causes all tiles to shift in that direction." +
 				"<br>Two adjacent duplicate tiles, when shifted correctly, will merge into a single tile with half value." + 
-				"<br>A random tile is added after every shift, denoted in magenta. Find the <FONT SIZE=+2>'<b>1</b>'</FONT> tile to win.";
+				"<br>A random tile (between 2048 and 1024) is added after every shift, denoted in magenta. Find the <FONT SIZE=+2>'<b>1</b>'</FONT> tile to win.";
 		instructions.setText(s);
 		JScrollPane tmpSPane = new JScrollPane(instructions);
 		

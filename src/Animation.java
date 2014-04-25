@@ -18,7 +18,7 @@ public class Animation extends JPanel{
 	
 	private void setupLabel(){
 		animationName.setForeground(Color.WHITE);
-		animationName.setFont(new Font("Arial", Font.BOLD, 35));
+		animationName.setFont(new Font("Arial", Font.BOLD, 22));
         add(animationName);
 	}
 	
