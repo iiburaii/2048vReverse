@@ -2,17 +2,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-
 import javax.swing.*;
 import javax.swing.Timer;
 
 
 public class Content extends JPanel{
-
 	private int tileValue;
     private JLabel tileLabel = new JLabel();
-    
-    
+    private int tileSize;
+    private boolean hasNotChanged = true;
     private static final Hashtable<Integer, Color> colorTable;
 	static{
 		colorTable = new Hashtable<Integer, Color>();
@@ -34,49 +32,79 @@ public class Content extends JPanel{
 	
 	
 	public Content(int val, int tileSize){
+		this.tileSize=tileSize;
     	setLayout(new GridBagLayout()); //GridBagLayout in particular to center the JLabel.
-    	setSize(tileSize,tileSize);
+    	setPreferredSize(new Dimension(tileSize,tileSize));
     	setupLabel();
-    	
-    }
-	public int getValue(){
-		return tileValue;
-	}
-	public Color getColor(){
-		return colorTable.get(tileValue);
-	}
-	public String getValueString(){
-		return String.valueOf(tileValue);
-	} 
-	public void initRandomTileValue(){
-		Random r = new Random();
-		int tileValueModifier = r.nextInt(2)+1;
-		changeValue(tileValueModifier*TilePanel.lowerStartValue);
-	}
-	public void makeNewTile(int val){
-		changeValue(val*TilePanel.lowerStartValue);
-	}
-	public void resetTileValue(){
-		changeValue(TilePanel.defaultEmptyTileValue);
-	}
-	public void mergeNewTile(int nonZeroTileValue){
-		changeValue(nonZeroTileValue);
-	}
-	public void mergeSameValueTile(){
-		if (tileValue >1) {
-			changeValue(tileValue/2);
-		}
-	}
-	private void changeValue(int newValue){
-		tileValue = newValue;
-	}
-	private void changeTileLabel(String newText){
-        tileLabel.setText(newText);
     }
 	private void setupLabel(){
 		tileLabel.setForeground(Color.WHITE);
         tileLabel.setFont(new Font("Arial", Font.BOLD, 35));
         add(tileLabel);
 	}
+	
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.setColor(getColor());
+		g.fillRect(0, 0, tileSize, tileSize);
+        g.setColor(Color.black);
+        g.drawRect(0, 0, tileSize, tileSize);
+	}
+	
+	public boolean hasNotChanged(){
+		return hasNotChanged;
+	}
+	public void resetHasNotChangedFlag(){
+		hasNotChanged=true;
+	}
+	
+	public int getValue(){
+		return tileValue;
+	}
+	
+	public Color getColor(){
+		return colorTable.get(tileValue);
+	}
+	
+	public String getValueString(){
+		return String.valueOf(tileValue);
+	} 
+	
+	public void initRandomTileValue(){
+		Random r = new Random();
+		int tileValueModifier = r.nextInt(2)+1;
+		changeValue(tileValueModifier*TilePanel.lowerStartValue);
+	}
+
+	public void resetTileValue(){
+		changeValue(TilePanel.defaultEmptyTileValue);
+	}
+	
+	public void mergeNewTile(int nonZeroTileValue){
+		changeValue(nonZeroTileValue);
+	}
+	
+	public void mergeSameValueTile(){
+		if (tileValue >1) {
+			changeValue(tileValue/2);
+			hasNotChanged=false;
+		}
+	}
+	
+	private void changeValue(int newValue){
+		tileValue = newValue;
+		if (tileValue>0){
+			changeTileLabel(getValueString());
+		}
+		else{
+			changeTileLabel("");
+		}
+		repaint();
+	}
+	
+	private void changeTileLabel(String newText){
+        tileLabel.setText(newText);
+    }
 	
 }

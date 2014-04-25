@@ -73,14 +73,17 @@ public class R2048 extends JApplet {
 				TilePanel right = gameBoard[i][j];
 
 				if (left.getValue()==0 && right.getValue()==0){
-					//This is a different case from the next conditional, so a necessary check.
+					//This is actually necessary...
 				}
 				else if (right.getValue()==left.getValue()){
-					left.mergeSameValueTile();
-					right.resetTileValue();
-					hasMerged = true;
+					if (right.hasNotChanged() && left.hasNotChanged()){
+						left.mergeSameValueTile();
+						right.resetTileValue();
+						hasMerged = true;
+					}
 				}
 				else if (left.getValue()==0){
+
 					left.mergeNewTile(right);
 					right.resetTileValue();
 					hasMerged = true;
@@ -92,6 +95,8 @@ public class R2048 extends JApplet {
 		if (hasMerged){
 			addRandomTile();
 		}
+		
+		resetHasNotChangedFlag();
 	}
 
 	public void moveRight(){
@@ -103,12 +108,14 @@ public class R2048 extends JApplet {
 				TilePanel right = gameBoard[i+1][j];
 
 				if (left.getValue()==0 && right.getValue()==0){
-					//This is a different case from the next conditional, so a necessary check.
+					//This is actually necessary...
 				}
 				else if (left.getValue()==right.getValue()){
-					right.mergeSameValueTile();
-					left.resetTileValue();
-					hasMerged = true;
+					if (right.hasNotChanged() && left.hasNotChanged()){
+						right.mergeSameValueTile();
+						left.resetTileValue();
+						hasMerged = true;
+					}
 				}
 				else if (right.getValue()==0){
 					right.mergeNewTile(left);
@@ -116,12 +123,15 @@ public class R2048 extends JApplet {
 					hasMerged = true;
 					i = NUM_TILES-1;
 				}
+
 			}
 		}
 
 		if (hasMerged){
 			addRandomTile();
 		}
+		
+		resetHasNotChangedFlag();
 	}
 
 	public void moveDown(){
@@ -133,12 +143,14 @@ public class R2048 extends JApplet {
 				TilePanel below = gameBoard[i][j+1];
 
 				if (above.getValue()==0 && below.getValue()==0){
-					//This is a different case from the next conditional, so a necessary check.
+					//This is actually necessary...
 				}
 				else if (above.getValue() == below.getValue()){
-					below.mergeSameValueTile();
-					above.resetTileValue();
-					hasMerged=true;
+					if (above.hasNotChanged() && below.hasNotChanged()){
+						below.mergeSameValueTile();
+						above.resetTileValue();
+						hasMerged=true;
+					}
 				}
 				else if (below.getValue() == 0){
 					below.mergeNewTile(above);
@@ -146,12 +158,15 @@ public class R2048 extends JApplet {
 					hasMerged=true;
 					j = NUM_TILES-1;
 				}
+
 			}
 		}
 
 		if (hasMerged){
 			addRandomTile();
 		}
+		
+		resetHasNotChangedFlag();
 	}
 
 	public void moveUp(){
@@ -166,9 +181,11 @@ public class R2048 extends JApplet {
 					//This is a different case from the next conditional, so a necessary check.
 				}
 				else if (below.getValue()==above.getValue()){
-					above.mergeSameValueTile();
-					below.resetTileValue();
-					hasMerged=true;
+					if (above.hasNotChanged() && below.hasNotChanged()){
+						above.mergeSameValueTile();
+						below.resetTileValue();
+						hasMerged=true;
+					}
 				}
 				else if (above.getValue()==0){
 					above.mergeNewTile(below);
@@ -182,6 +199,16 @@ public class R2048 extends JApplet {
 
 		if (hasMerged){
 			addRandomTile();
+		}
+		
+		resetHasNotChangedFlag();
+	}
+
+	public void resetHasNotChangedFlag(){
+		for (int i=0; i<NUM_TILES; ++i){
+			for (int j=0; j<NUM_TILES; ++j){
+				gameBoard[i][j].resetHasNotChangedFlag();
+			}
 		}
 	}
 
@@ -216,7 +243,7 @@ public class R2048 extends JApplet {
 		}
 		checkEnd();	
 	}
-	
+
 	private void checkEnd(){
 		ArrayList<Point> tempAvailList = new ArrayList<Point>();
 		for (int i=0; i<NUM_TILES; ++i){
