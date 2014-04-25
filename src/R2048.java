@@ -89,7 +89,7 @@ public class R2048 extends JApplet {
 				TilePanel right = gameBoard[i][j];
 
 				if (left.getValue()==0 && right.getValue()==0){
-					//This is actually necessary...
+
 				}
 				else if (right.getValue()==left.getValue()){
 					if (right.hasNotChanged() && left.hasNotChanged()){
@@ -124,7 +124,7 @@ public class R2048 extends JApplet {
 				TilePanel right = gameBoard[i+1][j];
 
 				if (left.getValue()==0 && right.getValue()==0){
-					//This is actually necessary...
+					
 				}
 				else if (left.getValue()==right.getValue()){
 					if (right.hasNotChanged() && left.hasNotChanged()){
@@ -159,7 +159,7 @@ public class R2048 extends JApplet {
 				TilePanel below = gameBoard[i][j+1];
 
 				if (above.getValue()==0 && below.getValue()==0){
-					//This is actually necessary...
+
 				}
 				else if (above.getValue() == below.getValue()){
 					if (above.hasNotChanged() && below.hasNotChanged()){
@@ -194,7 +194,7 @@ public class R2048 extends JApplet {
 				TilePanel below = gameBoard[i][j];
 
 				if (below.getValue()==0 && above.getValue()==0){
-					//This is a different case from the next conditional, so a necessary check.
+
 				}
 				else if (below.getValue()==above.getValue()){
 					if (above.hasNotChanged() && below.hasNotChanged()){
