@@ -1,18 +1,13 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-
 import javax.swing.*;
 import javax.swing.Timer;
-
-
-
 
 public class TilePanel extends JPanel{
 	static final int defaultEmptyTileValue = 0;
 	static final int lowerStartValue = 1024;
-	private final static int DELAY_COUNTER_MAX = 1;     //5 seconds
+	private final static int DELAY_COUNTER_MAX = 1;     
 	private final static int DELAY_DURATION_MAX = 500;  //0.5 second
 	private int delayDuration = DELAY_DURATION_MAX;
 	private int delayCounter = DELAY_COUNTER_MAX;

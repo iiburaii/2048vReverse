@@ -3,12 +3,6 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-/**
- * @author Jino Park
- * 2048 in reverse
- * CS150
- */
-
 public class R2048 extends JApplet {
 	private final int TILE_SIZE = 150; //Pixels
 	private final int NUM_TILES = 4;
