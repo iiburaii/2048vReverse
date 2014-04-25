@@ -72,15 +72,15 @@ public class R2048 extends JApplet {
 				TilePanel left = gameBoard[i-1][j];
 				TilePanel right = gameBoard[i][j];
 
-				if (left.getTileValue()==0 && right.getTileValue()==0){
+				if (left.getValue()==0 && right.getValue()==0){
 					//This is a different case from the next conditional, so a necessary check.
 				}
-				else if (right.getTileValue()==left.getTileValue()){
+				else if (right.getValue()==left.getValue()){
 					left.mergeSameValueTile();
 					right.resetTileValue();
 					hasMerged = true;
 				}
-				else if (left.getTileValue()==0){
+				else if (left.getValue()==0){
 					left.mergeNewTile(right);
 					right.resetTileValue();
 					hasMerged = true;
@@ -102,15 +102,15 @@ public class R2048 extends JApplet {
 				TilePanel left = gameBoard[i][j];
 				TilePanel right = gameBoard[i+1][j];
 
-				if (left.getTileValue()==0 && right.getTileValue()==0){
+				if (left.getValue()==0 && right.getValue()==0){
 					//This is a different case from the next conditional, so a necessary check.
 				}
-				else if (left.getTileValue()==right.getTileValue()){
+				else if (left.getValue()==right.getValue()){
 					right.mergeSameValueTile();
 					left.resetTileValue();
 					hasMerged = true;
 				}
-				else if (right.getTileValue()==0){
+				else if (right.getValue()==0){
 					right.mergeNewTile(left);
 					left.resetTileValue();
 					hasMerged = true;
@@ -132,15 +132,15 @@ public class R2048 extends JApplet {
 				TilePanel above = gameBoard[i][j];
 				TilePanel below = gameBoard[i][j+1];
 
-				if (above.getTileValue()==0 && below.getTileValue()==0){
+				if (above.getValue()==0 && below.getValue()==0){
 					//This is a different case from the next conditional, so a necessary check.
 				}
-				else if (above.getTileValue() == below.getTileValue()){
+				else if (above.getValue() == below.getValue()){
 					below.mergeSameValueTile();
 					above.resetTileValue();
 					hasMerged=true;
 				}
-				else if (below.getTileValue() == 0){
+				else if (below.getValue() == 0){
 					below.mergeNewTile(above);
 					above.resetTileValue();
 					hasMerged=true;
@@ -162,15 +162,15 @@ public class R2048 extends JApplet {
 				TilePanel above = gameBoard[i][j-1];
 				TilePanel below = gameBoard[i][j];
 
-				if (below.getTileValue()==0 && above.getTileValue()==0){
+				if (below.getValue()==0 && above.getValue()==0){
 					//This is a different case from the next conditional, so a necessary check.
 				}
-				else if (below.getTileValue()==above.getTileValue()){
+				else if (below.getValue()==above.getValue()){
 					above.mergeSameValueTile();
 					below.resetTileValue();
 					hasMerged=true;
 				}
-				else if (above.getTileValue()==0){
+				else if (above.getValue()==0){
 					above.mergeNewTile(below);
 					below.resetTileValue();
 					hasMerged=true;
@@ -189,7 +189,7 @@ public class R2048 extends JApplet {
 		ArrayList<Point> availableTileList = new ArrayList<Point>();
 		for (int i=0; i<NUM_TILES; ++i){
 			for (int j=0; j<NUM_TILES; ++j){
-				if (gameBoard[i][j].getTileValue()==0){
+				if (gameBoard[i][j].getValue()==0){
 					availableTileList.add(new Point (i, j));
 				}
 			}
@@ -221,10 +221,10 @@ public class R2048 extends JApplet {
 		ArrayList<Point> tempAvailList = new ArrayList<Point>();
 		for (int i=0; i<NUM_TILES; ++i){
 			for (int j=0; j<NUM_TILES; ++j){
-				if (gameBoard[i][j].getTileValue()==0){
+				if (gameBoard[i][j].getValue()==0){
 					tempAvailList.add(new Point (i, j));
 				}
-				else if (gameBoard[i][j].getTileValue()==1){
+				else if (gameBoard[i][j].getValue()==1){
 					JOptionPane.showMessageDialog(mainJPanel, "You win!");
 					System.exit(1);
 				}
