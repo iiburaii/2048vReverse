@@ -18,7 +18,9 @@ public class R2048 extends JApplet {
 	private final TilePanel[][] gameBoard = new TilePanel[NUM_TILES][NUM_TILES];
 
 	public void init(){
-		setSize(windowWidth,windowHeight);
+		setLayout(new FlowLayout());
+
+		setSize(windowWidth+50,windowHeight+200);
 		for (int i=0; i<NUM_TILES; ++i){
 			for (int j=0; j<NUM_TILES; ++j){
 				gameBoard[j][i] = new TilePanel(TILE_SIZE);
@@ -35,6 +37,7 @@ public class R2048 extends JApplet {
 		mainJPanel.getActionMap().put("leftPressed", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				checkEnd();
 				moveLeft();
 			}
 		});
@@ -42,6 +45,7 @@ public class R2048 extends JApplet {
 		mainJPanel.getActionMap().put("rightPressed", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				checkEnd();
 				moveRight();
 			}
 		});
@@ -49,6 +53,7 @@ public class R2048 extends JApplet {
 		mainJPanel.getActionMap().put("downPressed", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				checkEnd();
 				moveDown();
 			}
 		});
@@ -56,12 +61,29 @@ public class R2048 extends JApplet {
 		mainJPanel.getActionMap().put("upPressed", new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				checkEnd();
 				moveUp();
 			}
 		});
 
 		addRandomTile();
 		add(mainJPanel);
+
+		//Instructions
+		JTextPane instructions = new JTextPane();
+		instructions.setEditable(false);
+		instructions.setContentType("text/html");
+		String s = "<HTML><FONT SIZE=+2>JApplet Game: 2048 in Reverse</FONT>"+
+				"<br>HOW TO PLAY:<br>" +
+				"<br>Use arrow keys to play. Pressing a key (<FONT COLOR='RED'>up, down, left, right</FONT>) causes all tiles to shift in that direction." +
+				"<br>Two adjacent duplicate tiles, when shifted correctly, will merge into a single tile with half value." + 
+				"<br>A random tile is added after every shift, denoted in magenta. Find the <FONT SIZE=+2>'<b>1</b>'</FONT> tile to win.";
+		instructions.setText(s);
+		JScrollPane tmpSPane = new JScrollPane(instructions);
+		
+		JPanel tmp = new JPanel(new GridLayout());
+		tmp.add(tmpSPane);
+		add(tmp);
 	}
 
 	public void moveLeft(){
@@ -95,7 +117,7 @@ public class R2048 extends JApplet {
 		if (hasMerged){
 			addRandomTile();
 		}
-		
+
 		resetHasNotChangedFlag();
 	}
 
@@ -130,7 +152,7 @@ public class R2048 extends JApplet {
 		if (hasMerged){
 			addRandomTile();
 		}
-		
+
 		resetHasNotChangedFlag();
 	}
 
@@ -165,7 +187,7 @@ public class R2048 extends JApplet {
 		if (hasMerged){
 			addRandomTile();
 		}
-		
+
 		resetHasNotChangedFlag();
 	}
 
@@ -200,7 +222,7 @@ public class R2048 extends JApplet {
 		if (hasMerged){
 			addRandomTile();
 		}
-		
+
 		resetHasNotChangedFlag();
 	}
 
